@@ -1,5 +1,10 @@
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-export default async function HomePage() {
-  await delay(1000); // Simulate a delay for loading
-  return <div>blaze store</div>;
+import ProductList from "@/components/product/product-list";
+import sampleData from "@/db/sample-data";
+
+export default function HomePage() {
+  return (
+    <>
+      <ProductList data={sampleData.products} limit={4} title="Newes Arrival"/>
+    </>
+  );
 }
