@@ -1,17 +1,23 @@
-'use server'
-import { prisma } from "@/lib/prisma";
-import { convertToPlainObject } from "../utils";
+"use server";
+import { prisma } from "@/db/prisma";
 import { LATEST_PRODUCTS_LIMIT } from "../constants";
 
 export async function getLatestProducts() {
-  try {
     const products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
       take: LATEST_PRODUCTS_LIMIT,
     });
-    return convertToPlainObject(products);
-  } catch (error) {
-    console.error("Error fetching latest products:", error);
-    throw error;
-  }
+    return products.map((product) => ({
+      ...product,
+      price: product.price.toString(),
+      rating: product.rating.toString(),
+    }));
+
+}
+
+// Get single product by its slug
+export async function getProductBySlug(slug: string) {
+    return await prisma.product.findFirst({
+        where: { slug },
+    })
 }

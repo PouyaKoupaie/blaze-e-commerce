@@ -1,4 +1,4 @@
-import { nullable, z } from "zod";
+import { z } from "zod";
 import { formatNumberWithDecimal } from "./utils";
 
 const currency = z
@@ -19,7 +19,7 @@ export const productSchema = z.object({
     .min(3, "Product description must be at least 3 characters"),
   stock: z.coerce.number(),
   images: z.array(z.string()).min(1, "At least one image is required"),
-  isFeatured: z.boolean().optional(),
+  isFeatured: z.boolean(),
   banner: z.string().nullable(),
   price:currency ,
 });
