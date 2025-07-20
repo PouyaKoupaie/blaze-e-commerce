@@ -17,6 +17,9 @@ const eslintConfig = [
       "@typescript-eslint/no-explicit-any": "off",
     },
   },
+   {
+    ignores: ['lib/generated/prisma/**']
+  },
 ];
 
 export default eslintConfig;
