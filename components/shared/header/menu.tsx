@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import UserButton from "./user-buttom";
+import UserButton from "./user-button";
 
 const Menu = () => {
   return (
