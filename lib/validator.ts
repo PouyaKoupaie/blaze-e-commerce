@@ -48,8 +48,8 @@ export const signUpFormSchema = z
   //cart schemas
   export const cartItemSchena = z.object({
     productId: z.string().min(1, "Product ID is required"),
-    quantity: z.coerce.number().min(1, "Quantity must be a positive number"),
-    name: z.number().nonnegative( "Product name is required"),
+    quantity: z.number().nonnegative( "Quantity must be a positive number"),
+    name: z.string().min(1, "Product name is required"),
     slug: z.string().min(1, "Product slug is required"),
     image: z.string().min(1, "Product image is required"),
     price: currency,

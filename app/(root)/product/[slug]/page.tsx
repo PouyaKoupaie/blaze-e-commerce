@@ -1,3 +1,4 @@
+import AddToCart from "@/components/product/add-to-cart";
 import ProductImages from "@/components/product/product-images";
 import ProductPrice from "@/components/product/product-price";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +18,9 @@ const ProductDetailsPage = async (props: {
       <section>
         <div className="grid grid-cols-1 md:grid-cols-5">
           {/* Images */}
-          <div className="col-span-2"><ProductImages images={product.images}/></div>
+          <div className="col-span-2">
+            <ProductImages images={product.images} />
+          </div>
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
               <p>
@@ -60,7 +63,17 @@ const ProductDetailsPage = async (props: {
                 </div>
                 {product.stock > 0 && (
                   <div className="flex-center">
-                    <Button className="w-full">Add To Cart</Button>
+                    {/* <Button className="w-full">Add To Cart</Button> */}
+                    <AddToCart
+                      item={{
+                        productId: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: product.price,
+                        quantity: 1,
+                        image: product.images![0],
+                      }}
+                    />
                   </div>
                 )}
               </CardContent>
