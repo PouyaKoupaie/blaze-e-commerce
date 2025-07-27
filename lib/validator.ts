@@ -46,7 +46,7 @@ export const signUpFormSchema = z
   });
 
   //cart schemas
-  export const cartItemSchena = z.object({
+  export const cartItemSchema = z.object({
     productId: z.string().min(1, "Product ID is required"),
     quantity: z.number().nonnegative( "Quantity must be a positive number"),
     name: z.string().min(1, "Product name is required"),
@@ -56,7 +56,7 @@ export const signUpFormSchema = z
   });
 
   export const insertCartSchema = z.object({
-    items: z.array(cartItemSchena).min(1, "At least one item is required"),
+    items: z.array(cartItemSchema).min(1, "At least one item is required"),
     totalPrice: currency,
     itemsPrice: currency,
     shippingPrice: currency,
