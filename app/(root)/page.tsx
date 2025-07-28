@@ -1,11 +1,11 @@
-import ProductList from "@/components/product/product-list";
+import ProductList from "@/components/shared/product/product-list";
 import { getLatestProducts } from "@/lib/actions/product.actions";
 
 export default async function HomePage() {
   const latestProducts = await getLatestProducts();
   return (
     <>
-      <ProductList data={latestProducts} title="Newes Arrival"/>
+      <ProductList data={latestProducts} title="Newes Arrival" />
     </>
   );
 }
