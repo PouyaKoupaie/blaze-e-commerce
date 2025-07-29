@@ -16,7 +16,10 @@ import {
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Loader, Minus, Plus } from "lucide-react";
+import { ArrowRight, Loader, Minus, Plus } from "lucide-react";
+import OpacityAnimate from "@/components/animations/Opacity";
+import { Card, CardContent } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/utils";
 
 const CartTable = ({ cart }: { cart?: Cart }) => {
   const router = useRouter();
@@ -37,7 +40,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
     });
   };
   return (
-    <>
+    <OpacityAnimate>
       <h1 className="py-4 h2-bold">Shopping Cart</h1>
       {!cart || cart.items.length === 0 ? (
         <div>
@@ -102,16 +105,29 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                       </Button>
                     </TableCell>
                     <TableCell>
-                        {Number(item.price)*item.quantity}
+                      {Number(item.price) * item.quantity} $
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
+          <Card>
+            <CardContent className="p-4 gap-4">
+              <div className="pb-3 text-xl">
+                Subtotal ({cart.items.reduce((a, c) => a + c.quantity, 0)})
+                <span className="px-2 font-bold">
+                  {formatCurrency(cart.itemsPrice)}
+                </span>
+              </div>
+              <Button className="w-full" onClick={() => router.push("/shipping-address")}>
+                <ArrowRight /> Proceed to checkout
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       )}
-    </>
+    </OpacityAnimate>
   );
 };
 
