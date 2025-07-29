@@ -1,3 +1,5 @@
+import OpacityAnimate from "@/components/animations/Opacity";
+import SideIn from "@/components/animations/SideIn";
 import AddToCart from "@/components/shared/product/add-to-cart";
 import ProductImages from "@/components/shared/product/product-images";
 import ProductPrice from "@/components/shared/product/product-price";
@@ -20,10 +22,10 @@ const ProductDetailsPage = async (props: {
       <section>
         <div className="grid grid-cols-1 md:grid-cols-5">
           {/* Images */}
-          <div className="col-span-2">
+          <OpacityAnimate className="col-span-2">
             <ProductImages images={product.images} />
-          </div>
-          <div className="col-span-2 p-5">
+          </OpacityAnimate>
+          <SideIn side='top' className="col-span-2 p-5">
             <div className="flex flex-col gap-6">
               <p>
                 {product.brand} {product.category}
@@ -45,8 +47,8 @@ const ProductDetailsPage = async (props: {
               <p>{product.description}</p>
             </div>
             {/* action col */}
-          </div>
-          <div>
+          </SideIn>
+          <SideIn side="right">
             <Card>
               <CardContent className="px-4">
                 <div className="mb-2 flex justify-between">
@@ -81,7 +83,7 @@ const ProductDetailsPage = async (props: {
                 )}
               </CardContent>
             </Card>
-          </div>
+          </SideIn>
         </div>
       </section>
     </>
