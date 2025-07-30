@@ -83,32 +83,32 @@ export const config = {
       }
       return token
     },
-    // authorized({request, auth} : any) {
-    //   // check for session cart cookie
-    //   if (!request.cookies.get("sessionCartId")){
-    //     // generate new session cart id cookie
-    //     const sessionCartId = crypto.randomUUID();
+    authorized({request, auth} : any) {
+      // check for session cart cookie
+      if (!request.cookies.get("sessionCartId")){
+        // generate new session cart id cookie
+        const sessionCartId = crypto.randomUUID();
 
-    //     //clone request headers
-    //     const newRequestHeaders = new Headers(request.headers);
+        //clone request headers
+        const newRequestHeaders = new Headers(request.headers);
 
-    //     //create a new response
-    //     const response = NextResponse.next({
-    //       request: {
-    //         headers: newRequestHeaders,
-    //       },
-    //     });
+        //create a new response
+        const response = NextResponse.next({
+          request: {
+            headers: newRequestHeaders,
+          },
+        });
 
-    //     //set newly generated session cart id cookie
-    //     response.cookies.set({
-    //       name: "sessionCartId",
-    //       value: sessionCartId,
-    //     });
-    //     return response;
-    //   } else {
-    //     return true;
-    //   }
-    // }
+        //set newly generated session cart id cookie
+        response.cookies.set({
+          name: "sessionCartId",
+          value: sessionCartId,
+        });
+        return response;
+      } else {
+        return true;
+      }
+    }
   },
 } satisfies NextAuthConfig;
 
