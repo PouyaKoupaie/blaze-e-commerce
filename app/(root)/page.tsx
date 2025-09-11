@@ -5,7 +5,7 @@ export default async function HomePage() {
   const latestProducts = await getLatestProducts();
   return (
     <>
-      <ProductList data={latestProducts} title="Newes Arrival" />
+      <ProductList data={latestProducts} title="Newest Arrival" />
     </>
   );
 }

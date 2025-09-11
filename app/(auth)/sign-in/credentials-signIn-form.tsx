@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signInWithCredential } from "@/lib/actions/user.actions";
-import { signInDefaulValues } from "@/lib/constants";
+import { signInDefaultValues } from "@/lib/constants";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
@@ -39,7 +39,7 @@ const CredentialSignInForm = () => {
             placeholder="Enter your email"
             required
             autoComplete="email"
-            defaultValue={signInDefaulValues.email}
+            defaultValue={signInDefaultValues.email}
           />
         </div>
         <div>
@@ -51,7 +51,7 @@ const CredentialSignInForm = () => {
             placeholder="Enter your password"
             required
             autoComplete="password"
-            defaultValue={signInDefaulValues.password}
+            defaultValue={signInDefaultValues.password}
           />
         </div>
         <div>

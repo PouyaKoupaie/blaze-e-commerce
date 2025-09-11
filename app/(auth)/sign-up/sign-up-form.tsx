@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signUpUser } from "@/lib/actions/user.actions";
-import { signUpDefaulValues } from "@/lib/constants";
+import { signUpDefaultValues } from "@/lib/constants";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
@@ -39,7 +39,7 @@ const SignUpForm = () => {
             placeholder="Enter your name"
             required
             autoComplete="name"
-            defaultValue={signUpDefaulValues.name}
+            defaultValue={signUpDefaultValues.name}
           />
         </div>
         <div>
@@ -51,7 +51,7 @@ const SignUpForm = () => {
             placeholder="Enter your email"
             required
             autoComplete="email"
-            defaultValue={signUpDefaulValues.email}
+            defaultValue={signUpDefaultValues.email}
           />
         </div>
         <div>
@@ -63,7 +63,7 @@ const SignUpForm = () => {
             placeholder="Enter your password"
             required
             autoComplete="password"
-            defaultValue={signUpDefaulValues.password}
+            defaultValue={signUpDefaultValues.password}
           />
         </div>
         <div>
@@ -75,7 +75,7 @@ const SignUpForm = () => {
             placeholder="Enter your confirmPassword"
             required
             autoComplete="confirmPassword"
-            defaultValue={signUpDefaulValues.confirmPassword}
+            defaultValue={signUpDefaultValues.confirmPassword}
           />
         </div>
         <div>
