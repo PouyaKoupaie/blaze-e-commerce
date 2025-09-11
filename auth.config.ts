@@ -1,47 +1,45 @@
-// // auth.config.ts
+import type { NextAuthConfig } from 'next-auth';
+import { NextResponse } from 'next/server';
 
-// import type { NextAuthConfig } from "next-auth";
-// import CredentialsProvider from "next-auth/providers/credentials";
+export const authConfig = {
+  providers: [], // Required by NextAuthConfig type
+  callbacks: {
+    authorized({ request, auth }) {
+      // Array of regex patterns of paths we want to protect
+      const protectedPaths = [
+        /\/shipping-address/,
+        /\/payment-method/,
+        /\/place-order/,
+        /\/profile/,
+        /\/user\/(.*)/,
+        /\/order\/(.*)/,
+        /\/admin/,
+      ];
 
-// // Notice we do NOT import prisma or the adapter here.
-// // The authorize function will still be called on the server, not the edge.
+      // Get pathname from the req URL object
+      const { pathname } = request.nextUrl;
+      // Check if user is not authenticated and accessing a protected path
+      if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
 
-// export const config = {
-//   pages: {
-//     signIn: "/sign-in",
-//     error: "/sign-in",
-//   },
-//   session: {
-//     strategy: "jwt",
-//   },
-//   providers: [
-//     CredentialsProvider({
-//       // The authorize function is part of the server-only logic, 
-//       // but defining it here is fine. The middleware itself doesn't execute it.
-//       async authorize(credentials) {
-//         // This logic will be bundled with your [...nextauth] API route, not the middleware.
-//         // We will need to define it properly in the main `auth.ts` file.
-//         // For the config, we can return null as a placeholder, or define it fully.
-//         // To keep this file truly separate, we will move authorize to the main file.
-//         return null; // Placeholder, the real logic will be in auth.ts
-//       },
-//     }),
-//   ],
-//   callbacks: {
-//     // These callbacks are edge-safe and can be used in the middleware.
-//     async jwt({ token, user }) {
-//       if (user) {
-//         token.sub = user.id;
-//         token.role = user.role;
-//       }
-//       return token;
-//     },
-//     async session({ session, token }) {
-//       if (session.user) {
-//         session.user.id = token.sub as string;
-//         session.user.role = token.role as string;
-//       }
-//       return session;
-//     },
-//   },
-// } satisfies NextAuthConfig;
+      // Check for session cart cookie
+      if (!request.cookies.get('sessionCartId')) {
+        // Generate new session cart id cookie
+        const sessionCartId = crypto.randomUUID();
+
+        // Create new response and add the new headers
+        const response = NextResponse.next({
+          request: {
+            headers: new Headers(request.headers),
+          },
+        });
+
+        // Set newly generated sessionCartId in the response cookies
+        response.cookies.set('sessionCartId', sessionCartId);
+
+        return response;
+      }
+
+      return true;
+    },
+  },
+} satisfies NextAuthConfig;
