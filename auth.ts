@@ -2,10 +2,18 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./db/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { compareSync } from "bcrypt-ts-edge";
 import type { NextAuthConfig } from "next-auth";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { createHash } from "crypto";
+
+function hashPassword(password: string) {
+  return createHash("sha256").update(password).digest("hex");
+}
+
+function verifyPassword(password: string, hashed: string) {
+  return hashPassword(password) === hashed;
+}
 
 export const config = {
   pages: {
@@ -24,7 +32,7 @@ export const config = {
         password: { type: "password" },
       },
       async authorize(credentials) {
-        if (credentials == null) return null;
+        if (!credentials) return null;
 
         //find user in database
         const user = await prisma.user.findFirst({
@@ -34,7 +42,7 @@ export const config = {
         });
         // chack user existance and password match
         if (user && user.password) {
-          const isMatch = compareSync(
+          const isMatch = verifyPassword(
             credentials.password as string,
             user.password
           );
